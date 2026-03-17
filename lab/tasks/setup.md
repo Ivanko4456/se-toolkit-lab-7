@@ -257,7 +257,7 @@ If you can't [connect to your VM](../../wiki/vm.md#connect-to-the-vm), complete 
 
 ### 1.11. (UPD) Set up the `Qwen Code` (LOCAL)
 
-`Qwen Code` is a coding agent that can explain tasks, read wiki, explain concepts, write code, debug.
+[`Qwen Code`](../../wiki/qwen.md#what-is-qwen-code) is a [coding agent](../../wiki/coding-agents.md#what-is-a-coding-agent) that can answer questions about the repository and help you complete the lab tasks.
 
 <div style="display:flex;flex-wrap:wrap;gap:10px">
   <img alt="Qwen request" src="../images/tasks/setup/qwen-request.png" style="width:300px"></img>
