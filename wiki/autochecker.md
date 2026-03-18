@@ -7,7 +7,7 @@
   - [Set up the `Autochecker` bot](#set-up-the-autochecker-bot)
   - [Check the task using the `Autochecker` bot](#check-the-task-using-the-autochecker-bot)
 - [The `Autochecker` agent](#the-autochecker-agent)
-  - [Provide the `Autochecker` agent with access to your VM (REMOTE)](#provide-the-autochecker-agent-with-access-to-your-vm-remote)
+  - [Provide the `Autochecker` agent with access to the VM (REMOTE)](#provide-the-autochecker-agent-with-access-to-the-vm-remote)
 
 ## What is the `Autochecker`
 
@@ -46,14 +46,14 @@ Complete these steps:
 
 An agent that can check the setup on [your VM](./vm.md#your-vm) and send requests to it.
 
-### Provide the `Autochecker` agent with access to your VM (REMOTE)
+### Provide the `Autochecker` agent with access to the VM (REMOTE)
 
 > [!NOTE]
 > Replace [`<user>`](./operating-system.md#user-placeholder) with the actual [username](./operating-system.md#username).
 
-> Add the [`SSH` public key](./ssh.md#ssh-public-key) for [the `Autochecker` agent](#the-autochecker-agent) so that it can access your VM as the user `<user>`.
+> Add the [`SSH` public key](./ssh.md#ssh-public-key) for [the `Autochecker` agent](#the-autochecker-agent) so that it can access the VM as the user `<user>`.
 
-1. [Connect to your VM as the user `<user>`](./vm-access.md#connect-to-your-vm-by-ssh-as-the-user-user-local).
+1. [Connect to the VM as the user `<user>`](./vm-access.md#connect-to-the-vm-as-the-user-user-local).
 
 2. To check whether the `SSH` public key is already present,
 
