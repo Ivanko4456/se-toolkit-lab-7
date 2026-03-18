@@ -60,7 +60,7 @@ The [`Caddyfile`](./caddy.md#caddyfile) at [`caddy/Caddyfile`](../caddy/Caddyfil
 
 ### Listen on the specific port
 
-`Caddy` listens on the port whose port number is the value of [`CADDY_CONTAINER_PORT`](./dotenv-docker-secret.md#caddy_container_port) from [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret).
+`Caddy` listens on the port whose port number is the value of [`LMS_API_HOST_PORT`](./dotenv-docker-secret.md#lms_api_host_port) from [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret).
 
 ### Forward requests to the backend
 
