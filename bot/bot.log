@@ -136,3 +136,10 @@ Traceback (most recent call last):
   File "/root/se-toolkit-lab-7/bot/.venv/lib/python3.14/site-packages/aiogram/client/session/aiohttp.py", line 176, in make_request
     raise TelegramNetworkError(method=method, message=f"{type(e).__name__}: {e}") from e
 aiogram.exceptions.TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [None]
+ERROR:aiogram.dispatcher:Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [None]
+WARNING:aiogram.dispatcher:Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8665218343)
+ERROR:aiogram.dispatcher:Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [None]
+WARNING:aiogram.dispatcher:Sleep for 1.358912 seconds and try again... (tryings = 1, bot id = 8665218343)
+WARNING:aiogram.dispatcher:Received SIGTERM signal
+INFO:aiogram.dispatcher:Polling stopped for bot @se_toolkit_bot id=8665218343 - 'se-toolkit-bot'
+INFO:aiogram.dispatcher:Polling stopped
