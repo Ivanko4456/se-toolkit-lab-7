@@ -91,3 +91,74 @@ By the end of this lab, you should be able to say:
 2. [Backend Integration](./lab/tasks/required/task-2.md) — P0: slash commands + real data
 3. [Intent-Based Natural Language Routing](./lab/tasks/required/task-3.md) — P1: LLM tool use
 4. [Containerize and Document](./lab/tasks/required/task-4.md) — P3: containerize + deploy
+
+## Deploy
+
+### Prerequisites
+
+1. `.env.docker.secret` on the VM with:
+   - `BOT_TOKEN` — Telegram bot token from @BotFather
+   - `LMS_API_KEY` — LMS API key
+   - `LLM_API_KEY` — Qwen Code API key
+   - `LLM_API_MODEL` — Model name (e.g., `coder-model`)
+
+2. Backend running and healthy:
+   ```bash
+   curl -sf http://localhost:42002/docs
+   ```
+
+3. Qwen proxy running:
+   ```bash
+   cd ~/qwen-code-oai-proxy && docker compose ps
+   ```
+
+### Deploy the bot
+
+```bash
+cd ~/se-toolkit-lab-7
+
+# Stop the nohup bot process (if running)
+pkill -f "bot.py" 2>/dev/null
+
+# Build and start all services (including bot)
+docker compose --env-file .env.docker.secret up --build -d
+
+# Check status
+docker compose --env-file .env.docker.secret ps
+```
+
+### Verify
+
+1. **Check bot container logs:**
+   ```bash
+   docker compose --env-file .env.docker.secret logs bot --tail 20
+   ```
+   Look for: "Starting bot..." and "HTTP Request: POST .../getUpdates"
+
+2. **Test in Telegram:**
+   - `/start` — welcome message
+   - `/health` — backend status
+   - "what labs are available?" — LLM-powered query
+   - "which lab has the lowest pass rate?" — multi-step reasoning
+
+### Troubleshooting
+
+| Symptom | Solution |
+|---------|----------|
+| Bot container restarting | Check logs: `docker compose logs bot` |
+| `/health` fails | Ensure `LMS_API_URL=http://backend:8000` (not localhost) |
+| LLM queries fail | Ensure `LLM_API_BASE_URL=http://host.docker.internal:42005/v1` |
+| BOT_TOKEN error | Add token to `.env.docker.secret` |
+
+### Stop the bot
+
+```bash
+docker compose --env-file .env.docker.secret stop bot
+```
+
+### Restart after reboot
+
+```bash
+cd ~/se-toolkit-lab-7
+docker compose --env-file .env.docker.secret up -d
+```
