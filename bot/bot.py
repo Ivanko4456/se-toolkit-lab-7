@@ -13,6 +13,7 @@ import sys
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command, CommandStart
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 from config import BOT_TOKEN
 from handlers import (
@@ -21,6 +22,7 @@ from handlers import (
     handle_health,
     handle_labs,
     handle_scores,
+    handle_message,
 )
 
 # Set up logging
@@ -45,30 +47,43 @@ def process_command(command: str) -> str:
     # Extract arguments (everything after command)
     args = " ".join(parts[1:]) if len(parts) > 1 else ""
 
+    # If it's a known command, use the handler
     handler = HANDLERS.get(cmd_name)
     if handler:
         return handler(args)
     else:
-        return f"Unknown command: {cmd_name}. Use /help to see available commands."
+        # Not a command - treat as plain text message for LLM
+        return handle_message(command)
 
 
 # Create bot and dispatcher
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
+# Inline keyboard for quick actions
+def get_main_keyboard() -> ReplyKeyboardMarkup:
+    """Create a keyboard with common actions."""
+    keyboard = [
+        [KeyboardButton(text="📚 What labs are available?")],
+        [KeyboardButton(text="📊 Show scores for lab 4")],
+        [KeyboardButton(text="🏆 Top 5 students in lab 4")],
+        [KeyboardButton(text="💻 Check backend health")],
+    ]
+    return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
+
 
 @dp.message(CommandStart())
 async def cmd_start(message: types.Message):
     """Handle /start command from Telegram."""
     response = handle_start()
-    await message.answer(response)
+    await message.answer(response, reply_markup=get_main_keyboard())
 
 
 @dp.message(Command("help"))
 async def cmd_help(message: types.Message):
     """Handle /help command from Telegram."""
     response = handle_help()
-    await message.answer(response)
+    await message.answer(response, reply_markup=get_main_keyboard())
 
 
 @dp.message(Command("health"))
@@ -93,6 +108,14 @@ async def cmd_scores(message: types.Message):
     lab_name = " ".join(args) if args else ""
     response = handle_scores(lab_name)
     await message.answer(response)
+
+
+@dp.message()
+async def handle_any_message(message: types.Message):
+    """Handle any text message - routes through LLM."""
+    if message.text:
+        response = handle_message(message.text)
+        await message.answer(response)
 
 
 async def main():

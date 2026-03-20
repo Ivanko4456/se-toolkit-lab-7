@@ -6,7 +6,7 @@ They don't know about Telegram — same function works from
 --test mode, unit tests, or the actual Telegram bot.
 """
 
-from services import LMSAPIError, get_health, get_items, get_pass_rates
+from services import LMSAPIError, get_health, get_items, get_pass_rates, llm_route
 
 
 def handle_start(user_input: str = "") -> str:
@@ -22,7 +22,11 @@ def handle_help(user_input: str = "") -> str:
         "/help - Show this help\n"
         "/health - Check backend status\n"
         "/labs - List available labs\n"
-        "/scores <lab> - Show pass rates for a lab"
+        "/scores <lab> - Show pass rates for a lab\n\n"
+        "You can also ask questions in plain language:\n"
+        "- What labs are available?\n"
+        "- Show me scores for lab 4\n"
+        "- Which lab has the lowest pass rate?"
     )
 
 
@@ -84,3 +88,12 @@ def handle_scores(user_input: str = "") -> str:
         return "\n".join(lines)
     except LMSAPIError as e:
         return f"Backend error: {e.message}"
+
+
+def handle_message(user_input: str = "") -> str:
+    """Handle plain text message - routes through LLM."""
+    if not user_input or not user_input.strip():
+        return "Please ask me something!"
+    
+    # Use LLM to route and respond
+    return llm_route(user_input.strip())
