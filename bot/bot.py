@@ -39,12 +39,15 @@ HANDLERS = {
 
 def process_command(command: str) -> str:
     """Route a command to its handler and return the response."""
+    parts = command.strip().split()
     # Extract command name (first word)
-    cmd_name = command.split()[0].lower()
-    
+    cmd_name = parts[0].lower()
+    # Extract arguments (everything after command)
+    args = " ".join(parts[1:]) if len(parts) > 1 else ""
+
     handler = HANDLERS.get(cmd_name)
     if handler:
-        return handler(command)
+        return handler(args)
     else:
         return f"Unknown command: {cmd_name}. Use /help to see available commands."
 

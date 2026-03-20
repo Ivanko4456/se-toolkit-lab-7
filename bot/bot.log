@@ -2,9 +2,18 @@ nohup: ignoring input
 INFO:__main__:Starting bot...
 INFO:aiogram.dispatcher:Start polling
 INFO:aiogram.dispatcher:Run polling for bot @se_toolkit_bot id=8665218343 - 'se-toolkit-bot'
-INFO:aiogram.event:Update id=259417215 is handled. Duration 6899 ms by bot id=8665218343
-INFO:aiogram.event:Update id=259417214 is not handled. Duration 60071 ms by bot id=8665218343
-ERROR:aiogram.event:Cause exception while process update id=259417214 by bot id=8665218343
+INFO:httpx:HTTP Request: GET http://localhost:42002/items/ "HTTP/1.1 200 OK"
+INFO:aiogram.event:Update id=259417224 is handled. Duration 3573 ms by bot id=8665218343
+INFO:aiogram.event:Update id=259417225 is handled. Duration 3058 ms by bot id=8665218343
+INFO:httpx:HTTP Request: GET http://localhost:42002/items/ "HTTP/1.1 200 OK"
+INFO:aiogram.event:Update id=259417226 is handled. Duration 449 ms by bot id=8665218343
+INFO:aiogram.event:Update id=259417227 is handled. Duration 2195 ms by bot id=8665218343
+INFO:httpx:HTTP Request: GET http://localhost:42002/analytics/pass-rates?lab=lab-07 "HTTP/1.1 200 OK"
+INFO:aiogram.event:Update id=259417228 is handled. Duration 449 ms by bot id=8665218343
+INFO:httpx:HTTP Request: GET http://localhost:42002/items/ "HTTP/1.1 200 OK"
+INFO:aiogram.event:Update id=259417229 is handled. Duration 712 ms by bot id=8665218343
+INFO:aiogram.event:Update id=259417223 is not handled. Duration 60144 ms by bot id=8665218343
+ERROR:aiogram.event:Cause exception while process update id=259417223 by bot id=8665218343
 TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [None]
 Traceback (most recent call last):
   File "/root/se-toolkit-lab-7/bot/.venv/lib/python3.14/site-packages/aiohttp/connector.py", line 1313, in _wrap_create_connection
@@ -113,7 +122,7 @@ Traceback (most recent call last):
   File "/root/se-toolkit-lab-7/bot/.venv/lib/python3.14/site-packages/aiogram/dispatcher/event/handler.py", line 71, in call
     return await wrapped()
            ^^^^^^^^^^^^^^^
-  File "/root/se-toolkit-lab-7/bot/bot.py", line 61, in cmd_start
+  File "/root/se-toolkit-lab-7/bot/bot.py", line 78, in cmd_health
     await message.answer(response)
   File "/root/se-toolkit-lab-7/bot/.venv/lib/python3.14/site-packages/aiogram/methods/base.py", line 82, in emit
     return await bot(self)
